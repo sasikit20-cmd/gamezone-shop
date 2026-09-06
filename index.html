@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GAMEZONE SHOP | Game Items</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,"Noto Sans Thai",sans-serif;background:#050816;color:#fff;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.nav{position:sticky;top:0;z-index:20;background:rgba(5,8,22,.92);backdrop-filter:blur(14px);border-bottom:1px solid #202755}
+.nav-inner{max-width:1180px;margin:auto;padding:15px 22px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:23px;font-weight:900}.logo span{color:#8b5cf6}
+.navlinks{display:flex;gap:25px;font-size:14px;color:#cbd5e1}
+.navlinks a:hover{color:#a78bfa}
+.cart{border:0;background:#6d3df5;color:white;border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer}
+.hero{min-height:610px;display:flex;align-items:center;background:radial-gradient(circle at 80% 35%,rgba(76,29,149,.55),transparent 35%),linear-gradient(115deg,#070b1d 30%,#111b43 100%)}
+.hero-inner{max-width:1180px;width:100%;margin:auto;padding:70px 22px;display:grid;grid-template-columns:1.05fr .95fr;gap:35px;align-items:center}
+.badge{display:inline-block;padding:7px 15px;border:1px solid #7c3aed;border-radius:30px;color:#c4b5fd;background:#17102d;margin-bottom:18px;font-size:14px}
+h1{font-size:clamp(44px,6vw,78px);line-height:1.02;letter-spacing:-2px}
+h1 span{color:#8b5cf6}
+.hero h2{font-size:28px;margin:18px 0 8px}
+.hero p{color:#cbd5e1;max-width:620px}
+.btn{display:inline-block;margin-top:26px;padding:14px 24px;border-radius:14px;background:linear-gradient(90deg,#7c3aed,#2563eb);font-weight:800;box-shadow:0 10px 30px #4c1d9555}
+.hero-art{height:420px;border-radius:35px;display:flex;align-items:center;justify-content:center;font-size:170px;background:radial-gradient(circle,#312e81 0,#111a43 45%,#080b1c 75%);border:1px solid #35418b;box-shadow:0 0 80px #4f46e544;transform:rotate(2deg)}
+section{max-width:1180px;margin:auto;padding:70px 22px}
+.section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}
+.section-title h2{font-size:32px}.muted{color:#94a3b8}
+.categories{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.cat,.card,.step,.review{background:#0a1128;border:1px solid #25315f;border-radius:18px}
+.cat{padding:25px 15px;text-align:center;transition:.2s}
+.cat:hover{transform:translateY(-5px);border-color:#7c3aed}
+.cat .icon{font-size:42px}.cat b{display:block;margin-top:8px}
+.products{display:grid;grid-template-columns:repeat(5,1fr);gap:15px}
+.card{overflow:hidden}.pic{height:145px;display:flex;align-items:center;justify-content:center;font-size:70px;background:linear-gradient(135deg,#101a42,#1d1550)}
+.card-body{padding:16px}.tag{font-size:11px;color:#a78bfa}.card h3{margin:5px 0}
+.price{font-size:21px;font-weight:900}.old{text-decoration:line-through;color:#64748b;font-size:13px;margin-left:6px}
+.buy{width:100%;border:0;margin-top:12px;padding:10px;border-radius:10px;background:#6037ee;color:#fff;font-weight:800;cursor:pointer}
+.buy:hover{background:#7c3aed}
+.banner{max-width:1136px;margin:0 auto 10px;padding:28px 35px;border-radius:22px;background:linear-gradient(100deg,#4c1d95,#1d4ed8,#be185d);display:flex;justify-content:space-between;align-items:center}
+.banner h2{font-size:30px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{padding:25px;text-align:center}.num{margin:auto;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;border:2px solid #8b5cf6;color:#c4b5fd;font-weight:900;font-size:20px}
+.reviews{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.review{padding:20px}
+.stars{color:#facc15}.review small{color:#94a3b8}
+footer{border-top:1px solid #202755;background:#030611;padding:45px 22px}
+.foot{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+.foot h3{margin-bottom:10px}.foot p,.foot a{color:#94a3b8;font-size:14px;display:block;margin:5px 0}
+.modal{display:none;position:fixed;inset:0;background:#0009;z-index:50;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}.modal-box{width:min(430px,100%);background:#0b1228;border:1px solid #39447c;border-radius:20px;padding:25px}
+.modal-box input,.modal-box select{width:100%;margin:8px 0;padding:12px;border-radius:10px;border:1px solid #33416f;background:#060a19;color:#fff}
+.close{float:right;background:none;border:0;color:#fff;font-size:24px;cursor:pointer}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-art{height:300px}.products{grid-template-columns:repeat(3,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.steps,.reviews{grid-template-columns:repeat(2,1fr)}.foot{grid-template-columns:1fr 1fr}.navlinks{display:none}}
+@media(max-width:600px){.products,.categories,.steps,.reviews,.foot{grid-template-columns:1fr 1fr}.hero-art{font-size:110px}.banner{display:block}.banner h2{font-size:23px}.nav-inner{padding:12px 15px}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+<a class="logo" href="#">🎮 GAMEZONE <span>SHOP</span></a>
+<div class="navlinks"><a href="#home">หน้าหลัก</a><a href="#products">สินค้า</a><a href="#promo">โปรโมชั่น</a><a href="#howto">วิธีสั่งซื้อ</a><a href="#reviews">รีวิว</a><a href="#contact">ติดต่อเรา</a></div>
+<button class="cart" onclick="openCart()">🛒 ตะกร้า <span id="cartCount">0</span></button>
+</div></nav>
+
+<header class="hero" id="home"><div class="hero-inner"><div>
+<div class="badge">⚡ ร้านขายไอเทมเกม ครบจบในที่เดียว</div>
+<h1>GAMEZONE<br><span>SHOP</span></h1>
+<h2>เติมไอเทมสุดคุ้ม ราคาพิเศษ ส่งไว</h2>
+<p>รวมไอเทมเกมยอดนิยม ทั้งเงินในเกม อาวุธ ไอเทมพิเศษ และแพ็กเกจ VIP พร้อมบริการรวดเร็วและดูแลลูกค้า</p>
+<a class="btn" href="#products">🛒 เลือกซื้อสินค้า →</a>
+</div><div class="hero-art">⚔️💎</div></div></header>
+
+<section><div class="section-title"><div><div class="muted">เลือกตามประเภท</div><h2>🎮 หมวดหมู่สินค้า</h2></div></div>
+<div class="categories">
+<div class="cat"><div class="icon">💎</div><b>Currency</b><span class="muted">เงินในเกม / เพชร</span></div>
+<div class="cat"><div class="icon">⚔️</div><b>Weapon</b><span class="muted">อาวุธ / ไอเทมพิเศษ</span></div>
+<div class="cat"><div class="icon">🛡️</div><b>Armor</b><span class="muted">ชุดเกราะ / เครื่องแต่งกาย</span></div>
+<div class="cat"><div class="icon">🎁</div><b>Item</b><span class="muted">ไอเทมทั่วไป / ของสุ่ม</span></div>
+<div class="cat"><div class="icon">👑</div><b>Premium</b><span class="muted">VIP / แพ็กเกจพิเศษ</span></div>
+</div></section>
+
+<section id="products"><div class="section-title"><div><div class="muted">HOT ITEMS</div><h2>🔥 สินค้าแนะนำ</h2></div><span class="muted">เลือกซื้อได้ทันที →</span></div>
+<div class="products">
+<div class="card"><div class="pic">💎</div><div class="card-body"><span class="tag">ขายดี</span><h3>1,000 Gems</h3><span class="muted">เพชรในเกม</span><div class="price">฿99 <span class="old">฿129</span></div><button class="buy" onclick="addCart('1,000 Gems',99)">🛒 สั่งซื้อ</button></div></div>
+<div class="card"><div class="pic">⚔️</div><div class="card-body"><span class="tag">LEGENDARY</span><h3>Legendary Sword</h3><span class="muted">อาวุธระดับตำนาน</span><div class="price">฿199</div><button class="buy" onclick="addCart('Legendary Sword',199)">🛒 สั่งซื้อ</button></div></div>
+<div class="card"><div class="pic">🎁</div><div class="card-body"><span class="tag">RANDOM</span><h3>Mystery Box</h3><span class="muted">กล่องสุ่มไอเทม</span><div class="price">฿59</div><button class="buy" onclick="addCart('Mystery Box',59)">🛒 สั่งซื้อ</button></div></div>
+<div class="card"><div class="pic">👑</div><div class="card-body"><span class="tag">PREMIUM</span><h3>VIP Package</h3><span class="muted">แพ็กเกจ VIP 30 วัน</span><div class="price">฿299</div><button class="buy" onclick="addCart('VIP Package',299)">🛒 สั่งซื้อ</button></div></div>
+<div class="card"><div class="pic">🪙</div><div class="card-body"><span class="tag">POPULAR</span><h3>Gold 10M</h3><span class="muted">ทองในเกม</span><div class="price">฿149</div><button class="buy" onclick="addCart('Gold 10M',149)">🛒 สั่งซื้อ</button></div></div>
+</div></section>
+
+<div class="banner" id="promo"><div><div>🔥 HOT DEAL</div><h2>ซื้อแพ็ก 1,000 Gems วันนี้</h2><p>จาก 129 บาท → <b>เหลือเพียง 99 บาท</b></p></div><div style="font-size:80px">💎</div></div>
+
+<section id="howto"><div class="section-title"><div><div class="muted">EASY ORDER</div><h2>📋 วิธีสั่งซื้อ</h2></div></div>
+<div class="steps">
+<div class="step"><div class="num">1</div><h3>เลือกไอเทม</h3><p class="muted">เลือกสินค้าที่ต้องการจากหน้าเว็บ</p></div>
+<div class="step"><div class="num">2</div><h3>กรอกข้อมูล</h3><p class="muted">ระบุชื่อหรือ ID ในเกม</p></div>
+<div class="step"><div class="num">3</div><h3>ชำระเงิน</h3><p class="muted">เลือกช่องทางชำระเงินที่สะดวก</p></div>
+<div class="step"><div class="num">4</div><h3>รับไอเทม</h3><p class="muted">รอรับสินค้าและตรวจสอบรายการ</p></div>
+</div></section>
+
+<section id="reviews"><div class="section-title"><div><div class="muted">CUSTOMER FEEDBACK</div><h2>⭐ รีวิวจากลูกค้า</h2></div></div>
+<div class="reviews">
+<div class="review"><div class="stars">★★★★★</div><b>NongFilm</b><p>ส่งไวมากครับ ได้ของทันที บริการดีมาก</p><small>Genshin Impact</small></div>
+<div class="review"><div class="stars">★★★★★</div><b>Pond_123</b><p>ราคาดี ส่งของไว แอดมินตอบเร็วมาก</p><small>Roblox</small></div>
+<div class="review"><div class="stars">★★★★★</div><b>MewZa</b><p>ได้รับของครบตามที่สั่งเลยครับ</p><small>Ragnarok</small></div>
+<div class="review"><div class="stars">★★★★★</div><b>Kritsada</b><p>ประทับใจมากครับ ไว้จะกลับมาใช้บริการอีก</p><small>Free Fire</small></div>
+</div></section>
+
+<footer id="contact"><div class="foot">
+<div><h3>🎮 GAMEZONE <span style="color:#8b5cf6">SHOP</span></h3><p>ร้านขายไอเทมเกม ครบทุกความต้องการ<br>บริการรวดเร็วและดูแลลูกค้า</p></div>
+<div><h3>ติดต่อเรา</h3><a href="#">Facebook: GameZone Shop</a><a href="#">Discord: gamezoneshop</a><a href="#">LINE: @gamezone</a></div>
+<div><h3>ช่องทางการชำระเงิน</h3><p>PromptPay</p><p>TrueMoney Wallet</p><p>โอนธนาคาร</p></div>
+<div><h3>ติดตามเรา</h3><p>Facebook • Discord • TikTok</p></div>
+</div><div style="max-width:1180px;margin:30px auto 0;padding-top:20px;border-top:1px solid #182143;color:#64748b;font-size:13px">© 2026 GameZone Shop. Demo Landing Page.</div></footer>
+
+<div class="modal" id="modal"><div class="modal-box"><button class="close" onclick="closeCart()">×</button><h2>🛒 รายการสั่งซื้อ</h2>
+<div id="cartItems" style="margin:15px 0;color:#cbd5e1">ยังไม่มีสินค้า</div>
+<input id="gameId" placeholder="ชื่อ / ID ในเกม">
+<select id="payment"><option>PromptPay</option><option>TrueMoney Wallet</option><option>โอนธนาคาร</option></select>
+<button class="buy" onclick="checkout()">ยืนยันคำสั่งซื้อ</button>
+</div></div>
+
+<script>
+let cart=[];
+function addCart(name,price){cart.push({name,price});document.getElementById('cartCount').textContent=cart.length;openCart()}
+function openCart(){renderCart();document.getElementById('modal').classList.add('show')}
+function closeCart(){document.getElementById('modal').classList.remove('show')}
+function renderCart(){
+ const el=document.getElementById('cartItems');
+ if(!cart.length){el.textContent='ยังไม่มีสินค้า';return}
+ el.innerHTML=cart.map(x=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #202b50">${x.name}<b>฿${x.price}</b></div>`).join('')+
+ `<div style="text-align:right;margin-top:12px;font-size:18px">รวม ฿${cart.reduce((s,x)=>s+x.price,0)}</div>`;
+}
+function checkout(){
+ if(!cart.length){alert('กรุณาเลือกสินค้าก่อน');return}
+ if(!document.getElementById('gameId').value.trim()){alert('กรุณากรอกชื่อหรือ ID ในเกม');return}
+ alert('ส่งคำสั่งซื้อเรียบร้อย! (เดโม)\nร้านค้าสามารถเชื่อมต่อระบบชำระเงินจริงได้ภายหลัง');
+ closeCart();
+}
+</script>
+</body>
+</html>
